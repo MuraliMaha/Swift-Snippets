@@ -1,0 +1,103 @@
+//
+//  ViewController.swift
+//  ConstraintTest
+//
+//  Created by SunTelematics on 30/10/17.
+//  Copyright © 2017 SunTelematics. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+//    @IBOutlet weak var titleView: UIView!
+    
+    var contentView: UIView!
+    var backBtn : UIButton!
+    var titleLbl : UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    override func loadView() {
+        super.loadView()
+        
+       
+        addContentView()
+        addBackBtn()
+        addTitleLbl()
+       
+        print("Loaded")
+    }
+    
+    func addContentView(){
+        contentView = UIView()
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(contentView)
+        
+        let dictInfo = ["Container":contentView]
+        
+        let leading = 0
+        
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(leading)-[Container]-0-|", options: .alignmentMask, metrics: nil, views: dictInfo as Any as! [String : Any]))
+        
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[Container(64)]", options: .alignmentMask, metrics: nil, views: dictInfo as Any as! [String : Any]))
+        
+        contentView.backgroundColor = UIColor.gray
+    }
+    
+    func addBackBtn(){
+        backBtn = UIButton()
+        backBtn.translatesAutoresizingMaskIntoConstraints = false
+        
+        backBtn.setImage(UIImage(named: "BackActionBtn"), for: .normal)
+        backBtn.addTarget(self, action: #selector(backBtnTapped), for: .touchUpInside)
+        self.contentView.addSubview(backBtn)
+        
+        let btnDict = ["Btn":backBtn]
+        let btnleading = 0
+        let btnWidth = 64
+        let btnheight = 64
+        let btnTop = 0
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(btnleading)-[Btn(\(btnWidth))]", options: .alignmentMask, metrics: nil, views: btnDict as Any as! [String : Any]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(btnTop)-[Btn(\(btnheight))]", options: .alignmentMask, metrics: nil, views: btnDict as Any as! [String : Any]))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    func addTitleLbl() {
+        titleLbl = UILabel()
+        titleLbl.translatesAutoresizingMaskIntoConstraints = false
+        titleLbl.text = "OFFERS"
+        titleLbl.textColor = UIColor.white
+        titleLbl.textAlignment = .center
+        self.contentView.addSubview(titleLbl)
+     
+        let titleDict = ["TitleLbl" : titleLbl]
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[TitleLbl]-0-|", options: .alignmentMask, metrics: nil, views: titleDict as Any as! [String : Any]))
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[TitleLbl]-0-|", options: .alignmentMask, metrics: nil, views: titleDict as Any as! [String : Any]))
+        
+    }
+        
+  
+    
+    @objc func backBtnTapped(sender : UIButton){
+        print("back Btn Tapped")
+    }
+}
+
