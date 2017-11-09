@@ -1,0 +1,11 @@
+extension UIImage {
+    
+    func ReduceImageSize(_ size:CGSize) -> UIImage {
+        let canvasSize = CGSize.init(width: size.width , height:(size.width/self.size.width) * self.size.height)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, self.scale)
+        self.draw(in: CGRect.init(x: 0, y: 0, width: canvasSize.width, height: canvasSize.height))
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img!
+    }    
+}
