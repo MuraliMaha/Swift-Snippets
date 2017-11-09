@@ -1,0 +1,13 @@
+    //Parameters:
+    //originalImg = image to reduce its size
+    //size =  size to reduce
+    
+    func ReduceImageSize(_ originalImg:UIImage,_ size:CGSize) -> UIImage {
+
+        let canvasSize = CGSize.init(width: size.width , height:(size.width/originalImg.size.width) * originalImg.size.height)
+        UIGraphicsBeginImageContextWithOptions(originalImg.size, false, originalImg.scale)
+        originalImg.draw(in: CGRect.init(x: 0, y: 0, width: canvasSize.width, height: canvasSize.height))
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img!
+    }
